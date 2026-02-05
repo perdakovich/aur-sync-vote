@@ -125,13 +125,17 @@ def get_pkgbase(session: requests.Session, pkg: str) -> str:
     table = soup.find("table", {"id": "pkginfo"})
     if table is None:
         raise AURPageContentError(f"pkginfo table not found for {pkg}")
-    for row in table.find_all("tr"):
-        header = row.find("th")
-        if header and header.text.strip() == "Package Base:":
-            td = row.find("td")
-            if td:
-                return td.text.strip()
-    raise AURPageContentError(f"pkgbase not shown in pkginfo table for {pkg}")
+
+    a = table.select_one('a[href^="/pkgbase/"]')
+    if not a or not a.get("href"):
+        raise AURPageContentError(f"pkgbase not shown in pkginfo table for {pkg}")
+
+    href = a["href"].rstrip("/")
+    pkgbase = href.split("/")[-1].strip()
+    if not pkgbase:
+        raise AURPageContentError(f"pkgbase not shown in pkginfo table for {pkg}")
+
+    return pkgbase
 
 
 def vote_pkg(session: requests.Session, pkg: str) -> bool:

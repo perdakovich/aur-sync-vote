@@ -176,19 +176,19 @@ def cli():
         sys.exit(0)
     if (args.remember or args.clear) and not keyring_available():
         print(
-            "⚠️  No secure keyring backend available.\n\nTo enable credential storage, install a Secret Service provider (e.g. GNOME Keyring or KWallet) that implements org.freedesktop.secrets."
+            "⚠️ No secure keyring backend available.\n\nTo enable credential storage, install a Secret Service provider (e.g. GNOME Keyring or KWallet) that implements org.freedesktop.secrets."
         )
         sys.exit(1)
     if args.clear:
         if not credentials_exist():
-            print("⚠️  No saved credentials found")
+            print("⚠️ No saved credentials found")
             sys.exit(0)
         clear_credentials()
         print("✅ Credentials cleared")
         sys.exit(0)
 
     if args.remember and credentials_exist():
-        print("⚠️  Saved credentials exist. Overwrite? (Y/n) ", end="", flush=True)
+        print("⚠️ Saved credentials exist. Overwrite? (Y/n) ", end="", flush=True)
         resp = input()
         if not resp or resp.lower() == "y":
             username = input("🔐 Username: ")
@@ -217,7 +217,7 @@ def cli():
     if not login(session, username, password):
         print("❌ Could not login (invalid credentials)")
         sys.exit(1)
-    print("ℹ️  Collecting voted packages...")
+    print("ℹ️ Collecting voted packages...")
     voted_pkgs = set(p.name for p in get_voted_pkgs(session))
 
     if args.explicit:
@@ -225,7 +225,7 @@ def cli():
     else:
         foreign_pkgs = set(get_foreign_pkgs())
     for pkg in sorted(foreign_pkgs.difference(voted_pkgs)):
-        print("🗳️  Voting for package: %s... " % pkg, end="", flush=True)
+        print("🗳️ Voting for package: %s... " % pkg, end="", flush=True)
         try:
             pkgbase = get_pkgbase(session, pkg)
         except PackageNotFoundError:
@@ -241,7 +241,7 @@ def cli():
         pkgbase = get_pkgbase(session, pkg)
         if pkgbase in foreign_pkgs:
             continue
-        print("🗳️  Unvoting for package: %s... " % pkg, end="", flush=True)
+        print("🗳️ Unvoting for package: %s... " % pkg, end="", flush=True)
         if unvote_pkg(session, pkgbase):
             print("✅ done")
         else:

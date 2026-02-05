@@ -4,6 +4,7 @@ import subprocess
 import sys
 import time
 from dataclasses import dataclass
+from importlib.metadata import version
 
 import bs4
 import keyring
@@ -167,8 +168,12 @@ def cli():
     )
     parser.add_argument("--remember", "-r", action="store_true", help="remember login credentials")
     parser.add_argument("--clear", "-c", action="store_true", help="clear stored credentials and exit")
+    parser.add_argument("--version", "-v", action="store_true", help="show version and exit")
     args = parser.parse_args()
 
+    if args.version:
+        print(version("aur-sync-vote"))
+        sys.exit(0)
     if (args.remember or args.clear) and not keyring_available():
         print(
             "⚠️  No secure keyring backend available.\n\nTo enable credential storage, install a Secret Service provider (e.g. GNOME Keyring or KWallet) that implements org.freedesktop.secrets."

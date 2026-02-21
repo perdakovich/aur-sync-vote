@@ -38,7 +38,7 @@ aur-sync-vote --remember
 # or just aur-sync-vote -r
 ```
 
-Wiping out store credentials:
+Wiping out stored credentials:
 
 ```
 aur-sync-vote --clear

@@ -6,7 +6,8 @@
 
 ## Achievements
 
-- **2026-01-17** — `aur-sync-vote` was featured among the **Top 20 trending AUR packages** and the **most popular AUR voting tool**. Thanks to everyone who supported the project ❤️
+- **2026-02-21** - We got into the Top 10 🎉
+- **2026-01-17** - `aur-sync-vote` was featured among the **Top 20 trending AUR packages** and the **most popular AUR voting tool**. Thanks to everyone who supported the project ❤️
 
 ## Features
 
@@ -35,6 +36,13 @@ To remember credentials, run:
 ```
 aur-sync-vote --remember
 # or just aur-sync-vote -r
+```
+
+Wiping out store credentials:
+
+```
+aur-sync-vote --clear
+# or just aur-sync-vote -c
 ```
 
 ## Installation
